@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:config.properties"/>
+
+    <context:component-scan base-package="com.hasanozgan.challenge" />
+
+
+    <!-- setup Mongo and Morphia -->
+    <bean name="morphiaFactory" class="com.hasanozgan.challenge.utils.MorphiaFactory">
+        <property name="uri" value="${mongodb}"/>
+    </bean>
+
+    <bean name="datastore" factory-bean="morphiaFactory" factory-method="getDataStore"/>
+
+
+    <bean id="personDAO" class="com.hasanozgan.challenge.dao.PersonDAO">
+        <constructor-arg name="datastore" ref="datastore"/>
+
+    </bean>
+</beans>

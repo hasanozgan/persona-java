@@ -1,4 +1,8 @@
 *.class
+persona.iml
+
+.idea/
+target/
 
 # Package Files #
 *.jar
