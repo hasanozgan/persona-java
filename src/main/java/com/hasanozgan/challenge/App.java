@@ -1,8 +1,10 @@
 package com.hasanozgan.challenge;
 
+import com.hasanozgan.challenge.model.People;
 import com.hasanozgan.challenge.model.Person;
-import com.hasanozgan.challenge.service.CSVService;
 import com.hasanozgan.challenge.service.PersonService;
+import com.hasanozgan.challenge.service.parser.ParserService;
+import com.hasanozgan.challenge.utils.ParserServiceFactory;
 import org.apache.commons.cli.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -21,26 +23,28 @@ public class App
 
         ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:/applicationContext.xml");
         PersonService personService = ctx.getBean(PersonService.class);
-        CSVService csvService = ctx.getBean(CSVService.class);
 
         // create Options object
         Options options = new Options();
 
         // add t option
         options.addOption("h", "help", false, "help description");
-        options.addOption("i", "import", true, "input person csv file");
+        options.addOption("i", "import", true, "input person csv or xml file");
         options.addOption("s", "search", true, "search a person by name");
 
         try {
             CommandLineParser parser = new GnuParser();
             CommandLine cmd = parser.parse(options, args);
             if (cmd.hasOption("i")) {
-                List<String> csvList = csvService.readFile(cmd.getOptionValue("i"));
-                List<Person> people = personService.toPersonList(csvList);
-                personService.importPeople(people);
+                ParserService parserService = ParserServiceFactory.createParserService(cmd.getOptionValue("i"));
+                People people = parserService.createPeople();
 
-                System.out.println(String.format("\n%5s record(s) wrong", csvList.size() - people.size()));
                 System.out.println(String.format("%5s record(s) imported", people.size()));
+
+                personService.importPeople(people);
+                /*
+                System.out.println(String.format("\n%5s record(s) wrong", csvList.size() - people.size()));
+                System.out.println(String.format("%5s record(s) imported", people.size()));*/
             }
             else if (cmd.hasOption("s")) {
                 List<Person> people = personService.findByName(cmd.getOptionValue("s"));

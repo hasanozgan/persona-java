@@ -1,11 +1,13 @@
 package com.hasanozgan.challenge.model;
 
-import com.google.code.morphia.annotations.Entity;
-import com.google.code.morphia.annotations.Id;
+import com.google.code.morphia.annotations.*;
+import com.google.code.morphia.utils.IndexDirection;
 import org.bson.types.ObjectId;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,16 +18,19 @@ import java.util.List;
  */
 
 @Entity("person")
+@Indexes(@Index(name = "nameAndlastName", value = "name, lastName", unique = true, dropDups = true))
 public class Person {
 
     @Id
     ObjectId id;
 
+    @Property("name")
     String name;
 
+    @Property("lastName")
     String lastName;
 
-    List<String> phones;
+    Set<String> phones;
 
     public Person() {
     }
@@ -33,7 +38,7 @@ public class Person {
     public Person(String name, String lastName, String phones) {
         this.name = name;
         this.lastName = lastName;
-        this.phones = Arrays.asList(phones.split(":"));
+        this.phones = new HashSet<String>(Arrays.asList(phones.split(":")));
     }
 
     public ObjectId getId() {
@@ -60,11 +65,19 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public List<String> getPhones() {
+    public Set<String> getPhones() {
         return phones;
     }
 
-    public void setPhones(List<String> phones) {
+    public void setPhones(Set<String> phones) {
         this.phones = phones;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (name != null ? name.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+
+        return result;
     }
 }

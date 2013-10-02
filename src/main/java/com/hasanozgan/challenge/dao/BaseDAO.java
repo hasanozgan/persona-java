@@ -8,6 +8,7 @@ import com.google.code.morphia.logging.MorphiaLoggerFactory;
 import com.google.code.morphia.mapping.Mapper;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
+import com.mongodb.WriteConcern;
 
 import java.util.ArrayList;
 import java.util.Collection;

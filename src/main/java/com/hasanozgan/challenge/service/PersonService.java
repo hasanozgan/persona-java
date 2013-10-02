@@ -3,6 +3,7 @@ package com.hasanozgan.challenge.service;
 import com.google.code.morphia.query.Query;
 import com.google.code.morphia.query.QueryResults;
 import com.hasanozgan.challenge.dao.PersonDAO;
+import com.hasanozgan.challenge.model.People;
 import com.hasanozgan.challenge.model.Person;
 import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,9 @@ public class PersonService {
         return persons.asList();
     }
 
-    public boolean importPeople(List<Person> people) {
+    public boolean importPeople(People people) {
         try {
-            personDAO.saveAll(people);
+            personDAO.saveAll(people.values());
 
             return true;
         }
@@ -45,17 +46,5 @@ public class PersonService {
         }
 
         return false;
-    }
-
-    public List<Person> toPersonList(List<String> csvLines) {
-        List<Person> people = new ArrayList<Person>();
-        for (String line : csvLines) {
-            String[] fields = line.split(",");
-
-            if (fields.length == 3) {
-                people.add(new Person(fields[0], fields[1], fields[2]));
-            }
-        }
-        return people;
     }
 }

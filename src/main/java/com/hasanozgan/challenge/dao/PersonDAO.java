@@ -24,6 +24,7 @@ public class PersonDAO extends BaseDAO<Person, ObjectId> {
 
     protected PersonDAO(Datastore datastore) {
         super(datastore);
+
     }
 
     public QueryResults<Person> findByName(String name) {

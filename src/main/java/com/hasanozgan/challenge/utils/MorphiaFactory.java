@@ -43,7 +43,11 @@ public class MorphiaFactory
         MongoURI mongoClientURI = new MongoURI(uri);
         Mongo mongoClient = new Mongo(mongoClientURI);
 
-        return morphia.createDatastore(mongoClient, mongoClientURI.getDatabase());
+        Datastore ds = morphia.createDatastore(mongoClient, mongoClientURI.getDatabase());
+        ds.ensureIndexes();
+        ds.ensureCaps();
+
+        return ds;
     }
 
     public String getUri() {
