@@ -1,5 +1,6 @@
 package com.hasanozgan.challenge.service;
 
+import com.hasanozgan.challenge.model.People;
 import com.hasanozgan.challenge.model.Person;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,39 +17,30 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:applicationContext.xml"})
 public class PersonServiceTest
 {
-    /*
+
     @Autowired
     PersonService personService;
 
     @Test
-    public void testCSVToPersonConverter() throws Exception {
-        List<String> csvList = new ArrayList<String>();
-        csvList.add("Hasan,Ozgan,555-323-1111");
-        csvList.add("Steve,Jobs,3123123");
+    public void uniquePeople() throws Exception {
+        People people = new People();
+        people.addPerson("hasan", "ozgan", "+90 532 502 9685");
+        people.addPerson("hasan", "ozgan", "+90 532 502 1122");
+        people.addPerson("steve", "jobs", "+1 555 333 1122");
 
-        assertEquals(personService.toPersonList(csvList).size(), 2);
-    }
-
-    @Test
-    public void testImportData() throws Exception {
-        List<String> csvList = new ArrayList<String>();
-        csvList.add("Bill,Gates,555-323-1111");
-        csvList.add("Steve,Jobs,3123123");
-
-        List<Person> people = personService.toPersonList(csvList);
-        assertTrue(personService.importPeople(people));
+        assertEquals(people.size(), 2);
     }
 
     @Test
     public void testSearchByName() throws Exception {
-        List<String> csvList = new ArrayList<String>();
-        csvList.add("Bill,Gates,555-323-1111");
-        csvList.add("Steve,Jobs,3123123");
+        People people = new People();
+        people.addPerson("hasan", "ozgan", "+90 532 502 9685");
+        people.addPerson("hasan", "ozgan", "+90 532 502 1122");
+        people.addPerson("steve", "jobs", "+1 555 333 1122");
 
-        List<Person> people = personService.toPersonList(csvList);
         personService.importPeople(people);
 
-        assertTrue(personService.findByName("Bill").size() > 0);
+        assertTrue(personService.findByName("steve").size() > 0);
     }
-    */
+
 }

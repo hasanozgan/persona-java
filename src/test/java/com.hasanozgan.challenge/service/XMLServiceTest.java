@@ -1,16 +1,16 @@
 package com.hasanozgan.challenge.service;
 
 import com.hasanozgan.challenge.service.parser.CSVParserService;
+import com.hasanozgan.challenge.service.parser.XMLParserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
 import java.net.URL;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,20 +21,20 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:applicationContext.xml"})
-public class CSVServiceTest {
+public class XMLServiceTest {
 
     @Test
     public void testReadFile() throws Exception {
-        URL url = Thread.currentThread().getContextClassLoader().getResource("person-data.csv");
-        CSVParserService csvParserService = new CSVParserService(url.getPath());
+        URL url = Thread.currentThread().getContextClassLoader().getResource("person-data.xml");
+        XMLParserService xmlParserService = new XMLParserService(url.getPath());
 
-        assertEquals(csvParserService.createPeople().size(), 5);
+        assertEquals(xmlParserService.createPeople().size(), 5);
     }
 
     @Test(expected = IOException.class)
     public void testFileNotFound() throws Exception {
-        CSVParserService csvParserService = new CSVParserService("~filenotfound~");
+        XMLParserService xmlParserService = new XMLParserService("~filenotfound~");
 
-        csvParserService.createPeople();
+        xmlParserService.createPeople();
     }
 }
