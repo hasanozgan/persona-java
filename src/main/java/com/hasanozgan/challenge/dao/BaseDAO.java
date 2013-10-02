@@ -9,6 +9,7 @@ import com.google.code.morphia.mapping.Mapper;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.WriteConcern;
+import com.mongodb.WriteResult;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -38,9 +38,6 @@ public class XMLParserService implements ParserService {
                 people.addPerson(contact.getName(), contact.getLastName(), contact.getPhone());
             }
 
-            System.out.println(people.size());
-            System.out.println(contacts.getList().size());
-
         } catch (JAXBException e) {
             throw new IOException(e.getMessage());
         }

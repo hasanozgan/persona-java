@@ -39,12 +39,8 @@ public class App
                 ParserService parserService = ParserServiceFactory.createParserService(cmd.getOptionValue("i"));
                 People people = parserService.createPeople();
 
-                System.out.println(String.format("%5s record(s) imported", people.size()));
-
                 personService.importPeople(people);
-                /*
-                System.out.println(String.format("\n%5s record(s) wrong", csvList.size() - people.size()));
-                System.out.println(String.format("%5s record(s) imported", people.size()));*/
+                System.out.println(String.format("%5s record(s) imported", people.size()));
             }
             else if (cmd.hasOption("s")) {
                 List<Person> people = personService.findByName(cmd.getOptionValue("s"));
