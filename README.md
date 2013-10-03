@@ -22,14 +22,14 @@ run
     Persona is yet another challenge app
     usage: persona
      -h,--help           help description
-     -i,--import <arg>   input person csv file
+     -i,--import <arg>   input person csv or xml file
      -s,--search <arg>   search a person by name
    
    
 import a file
 ---
 
-    java -jar -Dapple.awt.UIElement="true" target/persona-1.0-SNAPSHOT.jar -i 50000persona.csv
+    java -jar -Dapple.awt.UIElement="true" target/persona-1.0-SNAPSHOT.jar -i contacts.xml
     
     Persona is yet another challenge app
 
